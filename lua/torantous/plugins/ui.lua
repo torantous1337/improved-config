@@ -135,7 +135,7 @@ return {
           style_preset = require("bufferline").style_preset.no_italic,
           themable = true,
           numbers = "none",
-          close_command = "bdelete!  %d",
+          close_command = "bdelete! %d",
           right_mouse_command = "bdelete! %d",
           left_mouse_command = "buffer %d",
           indicator = {
@@ -1236,65 +1236,5 @@ end,
       })
     end,
   },
-  -- ══════════════════════════════════════════════════════════════════════
-  -- TROUBLE (beautiful diagnostics panel)
-  -- ══════════════════════════════════════════════════════════════════════
-  {
-    "folke/trouble.nvim",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-    cmd = { "Trouble", "TroubleToggle" },
-    config = function()
-
-      require("trouble").setup({
-        position = "bottom",
-        height = 12,
-        icons = true,
-        mode = "workspace_diagnostics",
-        fold_open = "",
-        fold_closed = "",
-        group = true,
-        padding = true,
-        action_keys = {
-          close = "q",
-          cancel = "<esc>",
-          refresh = "r",
-          jump = { "<cr>", "<tab>" },
-          open_split = { "<c-x>" },
-          open_vsplit = { "<c-v>" },
-          open_tab = { "<c-t>" },
-          jump_close = { "o" },
-          toggle_mode = "m",
-          toggle_preview = "P",
-          hover = "K",
-          preview = "p",
-          close_folds = { "zM", "zm" },
-          open_folds = { "zR", "zr" },
-          toggle_fold = { "zA", "za" },
-          previous = "k",
-          next = "j",
-        },
-        indent_lines = true,
-        auto_open = false,
-        auto_close = true,
-        auto_preview = true,
-        auto_fold = false,
-        signs = {
-          error = "",
-          warning = "",
-          hint = "󰌵",
-          information = "",
-          other = "",
-        },
-        use_diagnostic_signs = false,
-      })
-    end,
-    keys = {
-      { "<leader>xT", "<cmd>Trouble diagnostics toggle<cr>", desc = "Trouble:  Diagnostics" },
-      { "<leader>xt", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", desc = "Trouble: Buffer diagnostics" },
-      { "<leader>xs", "<cmd>Trouble symbols toggle focus=false<cr>", desc = "Trouble: Symbols" },
-      { "<leader>xr", "<cmd>Trouble lsp toggle focus=false<cr>", desc = "Trouble: LSP references" },
-      { "<leader>xL", "<cmd>Trouble loclist toggle<cr>", desc = "Trouble: Location list" },
-      { "<leader>xQ", "<cmd>Trouble qflist toggle<cr>", desc = "Trouble: Quickfix" },
-    },
-  },
+  -- NOTE: trouble.nvim is configured in symbols.lua with v3 API and keymaps
 }

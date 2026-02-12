@@ -71,6 +71,12 @@ return {
       { "<leader>zb", "<cmd>Trouble lsp_references<cr>", desc = "References (Trouble)" },
       { "<leader>zh", "<cmd>Trouble lsp_incoming_calls<cr>", desc = "Incoming calls" },
       { "<leader>zt", "<cmd>Trouble lsp_outgoing_calls<cr>", desc = "Outgoing calls" },
+      { "<leader>xT", "<cmd>Trouble diagnostics toggle<cr>", desc = "Trouble: Diagnostics" },
+      { "<leader>xt", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", desc = "Trouble: Buffer diagnostics" },
+      { "<leader>xs", "<cmd>Trouble symbols toggle focus=false<cr>", desc = "Trouble: Symbols" },
+      { "<leader>xr", "<cmd>Trouble lsp toggle focus=false<cr>", desc = "Trouble: LSP references" },
+      { "<leader>xL", "<cmd>Trouble loclist toggle<cr>", desc = "Trouble: Location list" },
+      { "<leader>xQ", "<cmd>Trouble qflist toggle<cr>", desc = "Trouble: Quickfix" },
     },
   },
   {
@@ -95,39 +101,5 @@ return {
       { "<leader>zS", "<cmd>Telescope lsp_workspace_symbols<cr>", desc = "Workspace symbols" },
     },
   },
-  -- Optional: prettier popups if you don’t already have them
-  {
-    "folke/noice.nvim",
-    optional = true,
-    event = "VeryLazy",
-    dependencies = { "MunifTanjim/nui.nvim" },
-    opts = {
-      lsp = {
-        progress = { enabled = true },
-        override = {
-          ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-          ["vim.lsp.util.stylize_markdown"] = true,
-          ["cmp.entry.get_documentation"] = true,
-        },
-      },
-      presets = {
-        command_palette = true,
-        long_message_to_split = true,
-        lsp_doc_border = true,
-      },
-      views = {
-        mini = { border = { style = "rounded" } },
-        popupmenu = { border = { style = "rounded" } },
-      },
-    },
-  },
-  {
-    "stevearc/dressing.nvim",
-    optional = true,
-    event = "VeryLazy",
-    opts = {
-      input = { border = "rounded" },
-      select = { backend = { "telescope", "builtin" }, builtin = { border = "rounded" } },
-    },
-  },
+  -- NOTE: noice.nvim and dressing.nvim are configured in ui.lua
 }
