@@ -1,52 +1,206 @@
--- Shared color palette (oxocarbon-compatible)
+-- Shared color palette (Emacs-Gruv-Vivendi)
 local colors = {
   red = "#ee5396",
   green = "#42be65",
-  blue = "#78a9ff",
-  yellow = "#ffe97b",
+  blue = "#3fafff",
+  yellow = "#fabd2f",
   peach = "#ff832b",
-  mauve = "#be95ff",
+  mauve = "#ff80ce",
   teal = "#3ddbd9",
   sky = "#82cfff",
   pink = "#ff7eb6",
-  text = "#f2f4f8",
-  subtext1 = "#dde1e6",
+  text = "#dfdfe0",
+  subtext1 = "#bfbfbf",
   overlay0 = "#525252",
   overlay1 = "#6f6f6f",
-  surface0 = "#262626",
-  surface1 = "#393939",
-  mantle = "#161616",
-  base = "#0d0d0d",
+  surface0 = "#1c1c1c",
+  surface1 = "#2a2a2a",
+  mantle = "#131313",
+  base = "#101010",
   crust = "#000000",
+  comment = "#687d68",
+  func_blue = "#3fafff",
+  keyword = "#ff80ce",
 }
 
 return {
   -- ══════════════════════════════════════════════════════════════════════
-  -- OXOCARBON THEME (void black, high contrast)
+  -- EMACS HYBRID THEME (native Lua highlight specification)
   -- ══════════════════════════════════════════════════════════════════════
   {
-    "nyoom-engineering/oxocarbon.nvim",
+    "emacs-hybrid-theme",
+    virtual = true,
     priority = 1000,
     config = function()
+      vim.opt.termguicolors = true
       vim.opt.background = "dark"
-      vim.cmd.colorscheme("oxocarbon")
 
-      -- Force transparent background
-      vim.api.nvim_set_hl(0, "Normal", { bg = "NONE" })
-      vim.api.nvim_set_hl(0, "NormalNC", { bg = "NONE" })
-      vim.api.nvim_set_hl(0, "NormalFloat", { bg = "NONE" })
-      vim.api.nvim_set_hl(0, "SignColumn", { bg = "NONE" })
-      vim.api.nvim_set_hl(0, "EndOfBuffer", { bg = "NONE" })
+      -- Clear old highlights
+      vim.cmd("highlight clear")
+      if vim.fn.exists("syntax_on") == 1 then
+        vim.cmd("syntax reset")
+      end
 
-      -- Border hardening: all floating windows use "single" borders
-      vim.api.nvim_set_hl(0, "FloatBorder", { fg = "#525252", bg = "NONE" })
-      vim.api.nvim_set_hl(0, "FloatTitle", { fg = "#ee5396", bg = "NONE", bold = true })
+      local hl = function(group, opts)
+        vim.api.nvim_set_hl(0, group, opts)
+      end
 
-      -- Telescope borders
-      vim.api.nvim_set_hl(0, "TelescopeBorder", { fg = "#525252", bg = "NONE" })
-      vim.api.nvim_set_hl(0, "TelescopePreviewBorder", { fg = "#525252", bg = "NONE" })
-      vim.api.nvim_set_hl(0, "TelescopePromptBorder", { fg = "#525252", bg = "NONE" })
-      vim.api.nvim_set_hl(0, "TelescopeResultsBorder", { fg = "#525252", bg = "NONE" })
+      -- ── Editor UI ─────────────────────────────────────────────────────
+      hl("Normal",       { fg = colors.text,    bg = colors.base })
+      hl("NormalNC",     { fg = colors.text,    bg = colors.base })
+      hl("NormalFloat",  { fg = colors.text,    bg = colors.base })
+      hl("SignColumn",   { fg = colors.overlay0, bg = colors.base })
+      hl("EndOfBuffer",  { fg = colors.base,    bg = colors.base })
+      hl("CursorLine",   { bg = colors.surface0 })
+      hl("CursorLineNr", { fg = colors.yellow,  bg = colors.surface0, bold = true })
+      hl("LineNr",       { fg = colors.overlay0 })
+      hl("Visual",       { bg = "#2a2a3a" })
+      hl("VisualNOS",    { bg = "#2a2a3a" })
+      hl("Pmenu",        { fg = colors.text,    bg = colors.mantle })
+      hl("PmenuSel",     { fg = colors.base,    bg = colors.blue })
+      hl("PmenuSbar",    { bg = colors.surface0 })
+      hl("PmenuThumb",   { bg = colors.overlay0 })
+      hl("StatusLine",   { fg = colors.text,    bg = colors.mantle })
+      hl("StatusLineNC", { fg = colors.overlay1, bg = colors.mantle })
+      hl("TabLine",      { fg = colors.overlay1, bg = colors.mantle })
+      hl("TabLineFill",  { bg = colors.mantle })
+      hl("TabLineSel",   { fg = colors.text,    bg = colors.surface0, bold = true })
+      hl("WinSeparator", { fg = colors.surface1 })
+      hl("VertSplit",    { fg = colors.surface1 })
+      hl("ColorColumn",  { bg = colors.surface0 })
+      hl("Folded",       { fg = colors.overlay1, bg = colors.mantle })
+      hl("FoldColumn",   { fg = colors.overlay0, bg = colors.base })
+      hl("Search",       { fg = colors.base,    bg = colors.yellow })
+      hl("IncSearch",    { fg = colors.base,    bg = colors.peach })
+      hl("CurSearch",    { fg = colors.base,    bg = colors.peach, bold = true })
+      hl("MatchParen",   { fg = colors.yellow,  bold = true, underline = true })
+      hl("NonText",      { fg = colors.overlay0 })
+      hl("SpecialKey",   { fg = colors.overlay0 })
+      hl("Whitespace",   { fg = colors.surface1 })
+      hl("Directory",    { fg = colors.blue })
+      hl("Title",        { fg = colors.blue,    bold = true })
+      hl("ErrorMsg",     { fg = colors.red,     bold = true })
+      hl("WarningMsg",   { fg = colors.yellow })
+      hl("MoreMsg",      { fg = colors.green })
+      hl("ModeMsg",      { fg = colors.text,    bold = true })
+      hl("Question",     { fg = colors.green })
+      hl("WildMenu",     { fg = colors.base,    bg = colors.yellow })
+      hl("Conceal",      { fg = colors.overlay1 })
+      hl("SpellBad",     { undercurl = true, sp = colors.red })
+      hl("SpellCap",     { undercurl = true, sp = colors.yellow })
+      hl("SpellRare",    { undercurl = true, sp = colors.mauve })
+      hl("SpellLocal",   { undercurl = true, sp = colors.teal })
+
+      -- ── Syntax Highlights ─────────────────────────────────────────────
+      hl("Comment",      { fg = colors.comment, italic = true })
+      hl("Constant",     { fg = colors.yellow })
+      hl("String",       { fg = colors.yellow })
+      hl("Character",    { fg = colors.yellow })
+      hl("Number",       { fg = colors.yellow })
+      hl("Boolean",      { fg = colors.yellow })
+      hl("Float",        { fg = colors.yellow })
+      hl("Identifier",   { fg = colors.text })
+      hl("Function",     { fg = colors.func_blue })
+      hl("Statement",    { fg = colors.keyword })
+      hl("Conditional",  { fg = colors.keyword })
+      hl("Repeat",       { fg = colors.keyword })
+      hl("Label",        { fg = colors.keyword })
+      hl("Operator",     { fg = colors.text })
+      hl("Keyword",      { fg = colors.keyword })
+      hl("Exception",    { fg = colors.keyword })
+      hl("PreProc",      { fg = colors.mauve })
+      hl("Include",      { fg = colors.keyword })
+      hl("Define",       { fg = colors.keyword })
+      hl("Macro",        { fg = colors.mauve })
+      hl("PreCondit",    { fg = colors.mauve })
+      hl("Type",         { fg = colors.teal })
+      hl("StorageClass", { fg = colors.keyword })
+      hl("Structure",    { fg = colors.teal })
+      hl("Typedef",      { fg = colors.teal })
+      hl("Special",      { fg = colors.peach })
+      hl("SpecialChar",  { fg = colors.peach })
+      hl("Tag",          { fg = colors.blue })
+      hl("Delimiter",    { fg = colors.text })
+      hl("SpecialComment", { fg = colors.comment, italic = true })
+      hl("Debug",        { fg = colors.red })
+      hl("Underlined",   { underline = true })
+      hl("Error",        { fg = colors.red })
+      hl("Todo",         { fg = colors.yellow, bg = colors.surface0, bold = true })
+
+      -- ── Treesitter Highlights ─────────────────────────────────────────
+      hl("@comment",     { fg = colors.comment, italic = true })
+      hl("@string",      { fg = colors.yellow })
+      hl("@number",      { fg = colors.yellow })
+      hl("@boolean",     { fg = colors.yellow })
+      hl("@float",       { fg = colors.yellow })
+      hl("@constant",    { fg = colors.yellow })
+      hl("@constant.builtin", { fg = colors.yellow })
+      hl("@function",    { fg = colors.func_blue })
+      hl("@function.call", { fg = colors.func_blue })
+      hl("@function.builtin", { fg = colors.func_blue })
+      hl("@method",      { fg = colors.func_blue })
+      hl("@method.call",  { fg = colors.func_blue })
+      hl("@keyword",     { fg = colors.keyword })
+      hl("@keyword.function", { fg = colors.keyword })
+      hl("@keyword.return", { fg = colors.keyword })
+      hl("@keyword.operator", { fg = colors.keyword })
+      hl("@conditional", { fg = colors.keyword })
+      hl("@repeat",      { fg = colors.keyword })
+      hl("@exception",   { fg = colors.keyword })
+      hl("@include",     { fg = colors.keyword })
+      hl("@type",        { fg = colors.teal })
+      hl("@type.builtin", { fg = colors.teal })
+      hl("@variable",    { fg = colors.text })
+      hl("@variable.builtin", { fg = colors.red })
+      hl("@parameter",   { fg = colors.text })
+      hl("@field",       { fg = colors.text })
+      hl("@property",    { fg = colors.text })
+      hl("@operator",    { fg = colors.text })
+      hl("@punctuation", { fg = colors.text })
+      hl("@punctuation.bracket", { fg = colors.text })
+      hl("@punctuation.delimiter", { fg = colors.text })
+      hl("@tag",         { fg = colors.blue })
+      hl("@tag.attribute", { fg = colors.teal })
+      hl("@tag.delimiter", { fg = colors.overlay1 })
+      hl("@constructor",  { fg = colors.blue })
+      hl("@namespace",    { fg = colors.teal })
+
+      -- ── Diagnostics ───────────────────────────────────────────────────
+      hl("DiagnosticError", { fg = colors.red })
+      hl("DiagnosticWarn",  { fg = colors.yellow })
+      hl("DiagnosticInfo",  { fg = colors.blue })
+      hl("DiagnosticHint",  { fg = colors.teal })
+      hl("DiagnosticUnderlineError", { undercurl = true, sp = colors.red })
+      hl("DiagnosticUnderlineWarn",  { undercurl = true, sp = colors.yellow })
+      hl("DiagnosticUnderlineInfo",  { undercurl = true, sp = colors.blue })
+      hl("DiagnosticUnderlineHint",  { undercurl = true, sp = colors.teal })
+
+      -- ── Diff ──────────────────────────────────────────────────────────
+      hl("DiffAdd",    { bg = "#1a2e1a" })
+      hl("DiffChange", { bg = "#1a1a2e" })
+      hl("DiffDelete", { fg = colors.red, bg = "#2e1a1a" })
+      hl("DiffText",   { bg = "#2a2a4a" })
+
+      -- ── Float / Border ────────────────────────────────────────────────
+      hl("FloatBorder", { fg = colors.overlay0, bg = colors.base })
+      hl("FloatTitle",  { fg = colors.yellow,   bg = colors.base, bold = true })
+
+      -- ── Telescope (borders blend with background) ─────────────────────
+      hl("TelescopeBorder",        { fg = colors.base, bg = colors.base })
+      hl("TelescopePreviewBorder", { fg = colors.base, bg = colors.base })
+      hl("TelescopePromptBorder",  { fg = colors.base, bg = colors.base })
+      hl("TelescopeResultsBorder", { fg = colors.base, bg = colors.base })
+      hl("TelescopePromptTitle",   { fg = colors.base, bg = colors.yellow, bold = true })
+      hl("TelescopeResultsTitle",  { fg = colors.base, bg = colors.blue, bold = true })
+      hl("TelescopePreviewTitle",  { fg = colors.base, bg = colors.green, bold = true })
+      hl("TelescopePromptNormal",  { fg = colors.text, bg = colors.base })
+      hl("TelescopeResultsNormal", { fg = colors.text, bg = colors.base })
+      hl("TelescopePreviewNormal", { fg = colors.text, bg = colors.base })
+
+      -- ── Git Signs ─────────────────────────────────────────────────────
+      hl("GitSignsAdd",    { fg = colors.green })
+      hl("GitSignsChange", { fg = colors.blue })
+      hl("GitSignsDelete", { fg = colors.red })
     end,
   },
 
@@ -90,9 +244,35 @@ return {
         end,
       }
 
+      -- Custom lualine theme using the Emacs-Gruv-Vivendi palette
+      local emacs_hybrid_lualine = {
+        normal = {
+          a = { fg = colors.base, bg = colors.yellow, gui = "bold" },
+          b = { fg = colors.text, bg = colors.surface1 },
+          c = { fg = colors.text, bg = colors.mantle },
+        },
+        insert = {
+          a = { fg = colors.base, bg = colors.green, gui = "bold" },
+        },
+        visual = {
+          a = { fg = colors.base, bg = colors.mauve, gui = "bold" },
+        },
+        replace = {
+          a = { fg = colors.base, bg = colors.red, gui = "bold" },
+        },
+        command = {
+          a = { fg = colors.base, bg = colors.blue, gui = "bold" },
+        },
+        inactive = {
+          a = { fg = colors.overlay1, bg = colors.mantle },
+          b = { fg = colors.overlay1, bg = colors.mantle },
+          c = { fg = colors.overlay1, bg = colors.mantle },
+        },
+      }
+
       require("lualine").setup({
         options = {
-          theme = "auto",
+          theme = emacs_hybrid_lualine,
           section_separators = { left = "", right = "" },
           component_separators = { left = "│", right = "│" },
           globalstatus = true,
