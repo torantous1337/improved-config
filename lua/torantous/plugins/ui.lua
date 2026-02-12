@@ -1,3 +1,25 @@
+-- Shared color palette (oxocarbon-compatible)
+local colors = {
+  red = "#ee5396",
+  green = "#42be65",
+  blue = "#78a9ff",
+  yellow = "#ffe97b",
+  peach = "#ff832b",
+  mauve = "#be95ff",
+  teal = "#3ddbd9",
+  sky = "#82cfff",
+  pink = "#ff7eb6",
+  text = "#f2f4f8",
+  subtext1 = "#dde1e6",
+  overlay0 = "#525252",
+  overlay1 = "#6f6f6f",
+  surface0 = "#262626",
+  surface1 = "#393939",
+  mantle = "#161616",
+  base = "#0d0d0d",
+  crust = "#000000",
+}
+
 return {
   -- ══════════════════════════════════════════════════════════════════════
   -- OXOCARBON THEME (void black, high contrast)
@@ -106,7 +128,6 @@ return {
     dependencies = { "nvim-tree/nvim-web-devicons" },
     event = "VeryLazy",
     config = function()
-      local colors = { red = "#ee5396", green = "#42be65", blue = "#78a9ff", yellow = "#ffe97b", peach = "#ff832b", mauve = "#be95ff", teal = "#3ddbd9", sky = "#82cfff", pink = "#ff7eb6", text = "#f2f4f8", subtext1 = "#dde1e6", overlay0 = "#525252", overlay1 = "#6f6f6f", surface0 = "#262626", surface1 = "#393939", mantle = "#161616", base = "#0d0d0d", crust = "#000000" }
 
       require("bufferline").setup({
         options = {
@@ -165,7 +186,6 @@ return {
     "folke/which-key.nvim",
     event = "VeryLazy",
     config = function()
-      local colors = { red = "#ee5396", green = "#42be65", blue = "#78a9ff", yellow = "#ffe97b", peach = "#ff832b", mauve = "#be95ff", teal = "#3ddbd9", sky = "#82cfff", pink = "#ff7eb6", text = "#f2f4f8", subtext1 = "#dde1e6", overlay0 = "#525252", overlay1 = "#6f6f6f", surface0 = "#262626", surface1 = "#393939", mantle = "#161616", base = "#0d0d0d", crust = "#000000" }
 
       require("which-key").setup({
         preset = "modern",
@@ -277,7 +297,6 @@ return {
     config = function()
       local alpha = require("alpha")
       local dashboard = require("alpha.themes.dashboard")
-      local colors = { red = "#ee5396", green = "#42be65", blue = "#78a9ff", yellow = "#ffe97b", peach = "#ff832b", mauve = "#be95ff", teal = "#3ddbd9", sky = "#82cfff", pink = "#ff7eb6", text = "#f2f4f8", subtext1 = "#dde1e6", overlay0 = "#525252", overlay1 = "#6f6f6f", surface0 = "#262626", surface1 = "#393939", mantle = "#161616", base = "#0d0d0d", crust = "#000000" }
 
       -- Sick ASCII art header
       dashboard.section.header.val = {
@@ -489,7 +508,6 @@ return {
     "rcarriga/nvim-notify",
     event = "VeryLazy",
     config = function()
-      local colors = { red = "#ee5396", green = "#42be65", blue = "#78a9ff", yellow = "#ffe97b", peach = "#ff832b", mauve = "#be95ff", teal = "#3ddbd9", sky = "#82cfff", pink = "#ff7eb6", text = "#f2f4f8", subtext1 = "#dde1e6", overlay0 = "#525252", overlay1 = "#6f6f6f", surface0 = "#262626", surface1 = "#393939", mantle = "#161616", base = "#0d0d0d", crust = "#000000" }
 
       require("notify").setup({
         background_colour = colors.base,
@@ -556,7 +574,6 @@ return {
     dependencies = { "nvim-lua/plenary.nvim" },
     event = "VeryLazy",
     config = function()
-      local colors = { red = "#ee5396", green = "#42be65", blue = "#78a9ff", yellow = "#ffe97b", peach = "#ff832b", mauve = "#be95ff", teal = "#3ddbd9", sky = "#82cfff", pink = "#ff7eb6", text = "#f2f4f8", subtext1 = "#dde1e6", overlay0 = "#525252", overlay1 = "#6f6f6f", surface0 = "#262626", surface1 = "#393939", mantle = "#161616", base = "#0d0d0d", crust = "#000000" }
 
       require("todo-comments").setup({
         signs = true,
@@ -684,7 +701,6 @@ return {
     "shellRaining/hlchunk.nvim",
     event = "VeryLazy",
     config = function()
-      local colors = { red = "#ee5396", green = "#42be65", blue = "#78a9ff", yellow = "#ffe97b", peach = "#ff832b", mauve = "#be95ff", teal = "#3ddbd9", sky = "#82cfff", pink = "#ff7eb6", text = "#f2f4f8", subtext1 = "#dde1e6", overlay0 = "#525252", overlay1 = "#6f6f6f", surface0 = "#262626", surface1 = "#393939", mantle = "#161616", base = "#0d0d0d", crust = "#000000" }
 
       require("hlchunk").setup({
         chunk = {
@@ -730,7 +746,6 @@ return {
     "mvllow/modes.nvim",
     event = "VeryLazy",
     config = function()
-      local colors = { red = "#ee5396", green = "#42be65", blue = "#78a9ff", yellow = "#ffe97b", peach = "#ff832b", mauve = "#be95ff", teal = "#3ddbd9", sky = "#82cfff", pink = "#ff7eb6", text = "#f2f4f8", subtext1 = "#dde1e6", overlay0 = "#525252", overlay1 = "#6f6f6f", surface0 = "#262626", surface1 = "#393939", mantle = "#161616", base = "#0d0d0d", crust = "#000000" }
 
       require("modes").setup({
         colors = {
@@ -756,7 +771,6 @@ return {
     "rasulomaroff/reactive.nvim",
     event = "VeryLazy",
     config = function()
-      local colors = { red = "#ee5396", green = "#42be65", blue = "#78a9ff", yellow = "#ffe97b", peach = "#ff832b", mauve = "#be95ff", teal = "#3ddbd9", sky = "#82cfff", pink = "#ff7eb6", text = "#f2f4f8", subtext1 = "#dde1e6", overlay0 = "#525252", overlay1 = "#6f6f6f", surface0 = "#262626", surface1 = "#393939", mantle = "#161616", base = "#0d0d0d", crust = "#000000" }
 
       require("reactive").setup({
         builtin = {
@@ -777,7 +791,6 @@ return {
     event = "VeryLazy",
     dependencies = { "lewis6991/gitsigns.nvim" },
     config = function()
-      local colors = { red = "#ee5396", green = "#42be65", blue = "#78a9ff", yellow = "#ffe97b", peach = "#ff832b", mauve = "#be95ff", teal = "#3ddbd9", sky = "#82cfff", pink = "#ff7eb6", text = "#f2f4f8", subtext1 = "#dde1e6", overlay0 = "#525252", overlay1 = "#6f6f6f", surface0 = "#262626", surface1 = "#393939", mantle = "#161616", base = "#0d0d0d", crust = "#000000" }
 
       require("scrollbar").setup({
         show = true,
@@ -826,7 +839,6 @@ return {
     event = "VeryLazy",
     version = "2.*",
     config = function()
-      local colors = { red = "#ee5396", green = "#42be65", blue = "#78a9ff", yellow = "#ffe97b", peach = "#ff832b", mauve = "#be95ff", teal = "#3ddbd9", sky = "#82cfff", pink = "#ff7eb6", text = "#f2f4f8", subtext1 = "#dde1e6", overlay0 = "#525252", overlay1 = "#6f6f6f", surface0 = "#262626", surface1 = "#393939", mantle = "#161616", base = "#0d0d0d", crust = "#000000" }
 
       require("window-picker").setup({
         hint = "floating-big-letter",
@@ -867,7 +879,6 @@ return {
     ft = { "markdown", "norg", "org", "rmd" },
     dependencies = "nvim-treesitter/nvim-treesitter",
     config = function()
-      local colors = { red = "#ee5396", green = "#42be65", blue = "#78a9ff", yellow = "#ffe97b", peach = "#ff832b", mauve = "#be95ff", teal = "#3ddbd9", sky = "#82cfff", pink = "#ff7eb6", text = "#f2f4f8", subtext1 = "#dde1e6", overlay0 = "#525252", overlay1 = "#6f6f6f", surface0 = "#262626", surface1 = "#393939", mantle = "#161616", base = "#0d0d0d", crust = "#000000" }
       vim.api.nvim_set_hl(0, "Headline1", { fg = colors.red, bg = colors.surface0, bold = true })
       vim.api.nvim_set_hl(0, "Headline2", { fg = colors.peach, bg = colors.surface0, bold = true })
       vim.api.nvim_set_hl(0, "Headline3", { fg = colors.yellow, bg = colors.surface0, bold = true })
@@ -972,7 +983,6 @@ end,
     "j-hui/fidget.nvim",
     event = "VeryLazy",
     config = function()
-      local colors = { red = "#ee5396", green = "#42be65", blue = "#78a9ff", yellow = "#ffe97b", peach = "#ff832b", mauve = "#be95ff", teal = "#3ddbd9", sky = "#82cfff", pink = "#ff7eb6", text = "#f2f4f8", subtext1 = "#dde1e6", overlay0 = "#525252", overlay1 = "#6f6f6f", surface0 = "#262626", surface1 = "#393939", mantle = "#161616", base = "#0d0d0d", crust = "#000000" }
 
       require("fidget").setup({
         progress = {
@@ -1068,7 +1078,6 @@ end,
     "RRethy/vim-illuminate",
     event = "VeryLazy",
     config = function()
-      local colors = { red = "#ee5396", green = "#42be65", blue = "#78a9ff", yellow = "#ffe97b", peach = "#ff832b", mauve = "#be95ff", teal = "#3ddbd9", sky = "#82cfff", pink = "#ff7eb6", text = "#f2f4f8", subtext1 = "#dde1e6", overlay0 = "#525252", overlay1 = "#6f6f6f", surface0 = "#262626", surface1 = "#393939", mantle = "#161616", base = "#0d0d0d", crust = "#000000" }
 
       require("illuminate").configure({
         providers = { "lsp", "treesitter", "regex" },
@@ -1099,7 +1108,6 @@ end,
     config = function()
       require("mini.cursorword").setup({ delay = 100 })
 
-      local colors = { red = "#ee5396", green = "#42be65", blue = "#78a9ff", yellow = "#ffe97b", peach = "#ff832b", mauve = "#be95ff", teal = "#3ddbd9", sky = "#82cfff", pink = "#ff7eb6", text = "#f2f4f8", subtext1 = "#dde1e6", overlay0 = "#525252", overlay1 = "#6f6f6f", surface0 = "#262626", surface1 = "#393939", mantle = "#161616", base = "#0d0d0d", crust = "#000000" }
       vim.api.nvim_set_hl(0, "MiniCursorword", { underline = true, sp = colors.mauve })
       vim.api.nvim_set_hl(0, "MiniCursorwordCurrent", { underline = true, sp = colors.mauve })
     end,
@@ -1112,7 +1120,6 @@ end,
     "HiPhish/rainbow-delimiters.nvim",
     event = "VeryLazy",
     config = function()
-      local colors = { red = "#ee5396", green = "#42be65", blue = "#78a9ff", yellow = "#ffe97b", peach = "#ff832b", mauve = "#be95ff", teal = "#3ddbd9", sky = "#82cfff", pink = "#ff7eb6", text = "#f2f4f8", subtext1 = "#dde1e6", overlay0 = "#525252", overlay1 = "#6f6f6f", surface0 = "#262626", surface1 = "#393939", mantle = "#161616", base = "#0d0d0d", crust = "#000000" }
 
       vim.api.nvim_set_hl(0, "RainbowDelimiterRed", { fg = colors.red })
       vim.api.nvim_set_hl(0, "RainbowDelimiterYellow", { fg = colors.yellow })
@@ -1157,7 +1164,6 @@ end,
     "lewis6991/gitsigns.nvim",
     event = "VeryLazy",
     config = function()
-      local colors = { red = "#ee5396", green = "#42be65", blue = "#78a9ff", yellow = "#ffe97b", peach = "#ff832b", mauve = "#be95ff", teal = "#3ddbd9", sky = "#82cfff", pink = "#ff7eb6", text = "#f2f4f8", subtext1 = "#dde1e6", overlay0 = "#525252", overlay1 = "#6f6f6f", surface0 = "#262626", surface1 = "#393939", mantle = "#161616", base = "#0d0d0d", crust = "#000000" }
 
       require("gitsigns").setup({
         signs = {
@@ -1238,7 +1244,6 @@ end,
     dependencies = { "nvim-tree/nvim-web-devicons" },
     cmd = { "Trouble", "TroubleToggle" },
     config = function()
-      local colors = { red = "#ee5396", green = "#42be65", blue = "#78a9ff", yellow = "#ffe97b", peach = "#ff832b", mauve = "#be95ff", teal = "#3ddbd9", sky = "#82cfff", pink = "#ff7eb6", text = "#f2f4f8", subtext1 = "#dde1e6", overlay0 = "#525252", overlay1 = "#6f6f6f", surface0 = "#262626", surface1 = "#393939", mantle = "#161616", base = "#0d0d0d", crust = "#000000" }
 
       require("trouble").setup({
         position = "bottom",
