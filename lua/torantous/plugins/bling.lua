@@ -17,7 +17,6 @@ return {
     event = "VeryLazy",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
-      local mocha = require("catppuccin.palettes").get_palette("mocha")
       local devicons = require("nvim-web-devicons")
       
       require("incline").setup({
@@ -30,42 +29,10 @@ return {
           local ft_icon, ft_color = devicons.get_icon_color(filename)
           local modified = vim.bo[props.buf].modified
           
-          local function get_diagnostic_label()
-            local icons = { error = " ", warn = " ", info = " ", hint = "󰌵 " }
-            local label = {}
-            
-            for severity, icon in pairs(icons) do
-              local n = #vim.diagnostic.get(props.buf, { severity = vim.diagnostic.severity[string.upper(severity)] })
-              if n > 0 then
-                local hl_map = { error = "Error", warn = "Warn", info = "Info", hint = "Hint" }
-                table.insert(label, { icon .. n .. " ", group = "DiagnosticSign" .. hl_map[severity] })
-              end
-            end
-            return label
-          end
-          
-          local function get_git_diff()
-            local icons = { removed = " ", changed = "󰝤 ", added = " " }
-            local signs = vim.b[props.buf].gitsigns_status_dict
-            local labels = {}
-            if not signs then
-              return labels
-            end
-            local name_map = { removed = "Removed", changed = "Changed", added = "Added" }
-            for name, icon in pairs(icons) do
-              if tonumber(signs[name]) and signs[name] > 0 then
-                table.insert(labels, { icon .. signs[name] .. " ", group = "Diff" .. name_map[name] })
-              end
-            end
-            return labels
-          end
-          
           local buffer = {
-            { get_diagnostic_label() },
-            { get_git_diff() },
             { (ft_icon or "") .. " ", guifg = ft_color, guibg = "none" },
             { filename .. " ", gui = modified and "bold,italic" or "bold" },
-            { modified and "󰏫 " or "" },
+            { modified and "● " or "" },
           }
           
           return buffer
@@ -74,14 +41,6 @@ return {
           padding = 0,
           margin = { horizontal = 0, vertical = 0 },
           placement = { horizontal = "right", vertical = "top" },
-          winhighlight = {
-            active = {
-              Normal = { guibg = mocha.surface0 },
-            },
-            inactive = {
-              Normal = { guibg = mocha.mantle },
-            },
-          },
         },
       })
     end,
@@ -128,7 +87,6 @@ return {
     end,
     config = function()
       local wilder = require("wilder")
-      local mocha = require("catppuccin.palettes").get_palette("mocha")
       
       wilder.setup({ modes = { ":", "/", "?" } })
       
@@ -143,14 +101,13 @@ return {
         ),
       })
       
-      -- Popup menu with rounded borders
+      -- Popup menu with single borders
       wilder.set_option(
         "renderer",
         wilder.popupmenu_renderer(wilder.popupmenu_border_theme({
           highlighter = wilder.lua_fzy_highlighter(),
           highlights = {
             border = "Normal",
-            accent = wilder.make_hl("WilderAccent", "Pmenu", { { a = 1 }, { a = 1 }, { foreground = mocha.mauve } }),
           },
           border = "single",
           max_height = 15,
