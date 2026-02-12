@@ -456,6 +456,8 @@ return {
         -- Generate hex dumps, then open in diff mode
         local cmd = "xxd " .. vim.fn.shellescape(file_a) .. " > " .. vim.fn.shellescape(hex_a)
             .. " && xxd " .. vim.fn.shellescape(file_b) .. " > " .. vim.fn.shellescape(hex_b)
+        -- NOTE: hex_a/hex_b are safe paths constructed from scratch_dir + os.time(),
+        -- and shellescape protects them in the redirection targets.
 
         vim.fn.jobstart(cmd, {
           on_exit = function(_, code)
@@ -569,13 +571,14 @@ return {
         }
 
         -- Run map (what to strace)
+        local lua_cmd = vim.fn.executable("luajit") == 1 and "luajit" or "lua"
         local run_cmds = {
           cpp = vim.fn.shellescape(dir .. "/" .. base),
           c = vim.fn.shellescape(dir .. "/" .. base),
           rust = vim.fn.shellescape(dir .. "/" .. base),
           go = "go run " .. vim.fn.shellescape(file),
           python = "python3 " .. vim.fn.shellescape(file),
-          lua = "luajit " .. vim.fn.shellescape(file),
+          lua = lua_cmd .. " " .. vim.fn.shellescape(file),
           sh = "bash " .. vim.fn.shellescape(file),
           bash = "bash " .. vim.fn.shellescape(file),
         }
