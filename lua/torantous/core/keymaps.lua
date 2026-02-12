@@ -3,7 +3,6 @@
 -- ============================================================================
 
 local map = vim.keymap.set
-local opts = { silent = true }
 
 -- ════════════════════════════════════════════════════════════════
 -- NEOVIM CONFIG NAVIGATION
@@ -39,7 +38,7 @@ map("n", "<leader>e", "<cmd>NvimTreeFindFileToggle<cr>", { desc = "File explorer
 -- ════════════════════════════════════════════════════════════════
 -- BUFFERS
 -- ════════════════════════════════════════════════════════════════
-map("n", "<leader>bd", "<cmd>bd<cr>", { desc = "Close buffer" })
+map("n", "<leader>bd", "<cmd>bp|bd #<cr>", { desc = "Close buffer (keep window)" })
 map("n", "<leader>bn", "<cmd>bnext<cr>", { desc = "Next buffer" })
 map("n", "<leader>bp", "<cmd>bprevious<cr>", { desc = "Prev buffer" })
 map("n", "<leader>ba", "<cmd>%bd|e#|bd#<cr>", { desc = "Close all but current" })
@@ -80,23 +79,12 @@ map("n", "<F11>", function() require("dap").step_into() end, { desc = "DAP Step 
 map("n", "<F12>", function() require("dap").step_out() end, { desc = "DAP Step Out" })
 
 -- ════════════════════════════════════════════════════════════════
--- DIAGNOSTICS
--- ════════════════════════════════════════════════════════════════
-map("n", "[d", vim.diagnostic.goto_prev, { desc = "Prev diagnostic" })
-map("n", "]d", vim.diagnostic.goto_next, { desc = "Next diagnostic" })
-map("n", "<leader>xd", vim.diagnostic.open_float, { desc = "Line diagnostics" })
-
--- ════════════════════════════════════════════════════════════════
 -- QUALITY OF LIFE
 -- ════════════════════════════════════════════════════════════════
 map("n", "<Esc>", "<cmd>nohlsearch<cr>", { desc = "Clear search highlight" })
 map("v", "J", ":m '>+1<cr>gv=gv", { desc = "Move selection down" })
 map("v", "K", ":m '<-2<cr>gv=gv", { desc = "Move selection up" })
 map("n", "J", "mzJ`z", { desc = "Join lines (keep cursor)" })
-map("n", "<C-d>", "<C-d>zz", { desc = "Half page down (centered)" })
-map("n", "<C-u>", "<C-u>zz", { desc = "Half page up (centered)" })
-map("n", "n", "nzzzv", { desc = "Next search (centered)" })
-map("n", "N", "Nzzzv", { desc = "Prev search (centered)" })
 -- ════════════════════════════════════════════════════════════════
 -- 🔥 POWER USER TRICKS
 -- ════════════════════════════════════════════════════════════════
@@ -146,15 +134,6 @@ map("v", "<A-k>", ": m '<-2<cr>gv=gv", { desc = "Move selection up" })
 map("n", "<C-s>", "<cmd>w<cr>", { desc = "Save" })
 map("i", "<C-s>", "<Esc><cmd>w<cr>", { desc = "Save" })
 
--- Close buffer without closing window
-map("n", "<leader>bd", "<cmd>bp|bd #<cr>", { desc = "Close buffer (keep window)" })
-
--- Split navigation (already have but adding resize)
-map("n", "<C-h>", "<C-w>h", { desc = "Go left" })
-map("n", "<C-j>", "<C-w>j", { desc = "Go down" })
-map("n", "<C-k>", "<C-w>k", { desc = "Go up" })
-map("n", "<C-l>", "<C-w>l", { desc = "Go right" })
-
 -- Split creation
 map("n", "<leader>sv", "<cmd>vsplit<cr>", { desc = "Split vertical" })
 map("n", "<leader>sh", "<cmd>split<cr>", { desc = "Split horizontal" })
@@ -167,9 +146,9 @@ map("n", "<leader>tx", "<cmd>tabclose<cr>", { desc = "Close tab" })
 map("n", "<leader>]", "<cmd>tabnext<cr>", { desc = "Next tab" })
 map("n", "<leader>[", "<cmd>tabprev<cr>", { desc = "Prev tab" })
 
--- Quick terminal
-map("n", "<leader>tt", "<cmd>split | terminal<cr>", { desc = "Terminal (horizontal)" })
-map("n", "<leader>tv", "<cmd>vsplit | terminal<cr>", { desc = "Terminal (vertical)" })
+-- Quick terminal (toggleterm uses <leader>tt for float terminal)
+map("n", "<leader>tH", "<cmd>split | terminal<cr>", { desc = "Terminal (horizontal)" })
+map("n", "<leader>tV", "<cmd>vsplit | terminal<cr>", { desc = "Terminal (vertical)" })
 map("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 
 -- Quick jump to start/end of line
@@ -241,8 +220,7 @@ map("i", "<C-e>", "<End>", { desc = "End of line" })
 map("i", "<C-w>", "<C-\\><C-o>db", { desc = "Delete word backward" })
 map("i", "<A-d>", "<C-\\><C-o>dw", { desc = "Delete word forward" })
 
--- Delete to end/start of line
-map("i", "<C-k>", "<C-\\><C-o>D", { desc = "Delete to end of line" })
+-- Delete to start of line
 map("i", "<C-u>", "<C-\\><C-o>d^", { desc = "Delete to start of line" })
 
 -- New line without breaking current line
@@ -294,11 +272,7 @@ map("i", "<C-t>D", "<C-r>=strftime('%Y-%m-%d')<cr>", { desc = "Insert date" })
 -- Insert filename
 map("i", "<C-t>p", "<C-r>=expand('%:t')<cr>", { desc = "Insert filename" })
 map("i", "<C-t>P", "<C-r>=expand('%:p')<cr>", { desc = "Insert full path" })
--- Open New Tab
-map("n", "<leader>tn", "<cmd>tabnew<cr>", { desc = "New Tab" })
 
-
--- check lua version
 -- Show Lua version info
 map("n", "<leader>rv", function()
   local output = vim.fn.system("lua -v && luajit -v 2>/dev/null || echo 'LuaJIT not installed'")
@@ -310,15 +284,10 @@ map("n", "<leader>rj", function()
   local file = vim.fn.expand("%:p")
   vim.cmd("split | terminal luajit '" ..  file .. "'")
 end, { desc = "Run with LuaJIT" })
--- Show Lua version info
-map("n", "<leader>rv", function()
-  local output = vim.fn.system("lua -v && luajit -v 2>/dev/null || echo 'LuaJIT not installed'")
-  vim.notify(output, vim.log.levels.INFO, { title = "Lua Versions" })
-end, { desc = "Show Lua versions" })
+
 -- UI Toggles
 map("n", "<leader>uz", "<cmd>ZenMode<cr>", { desc = "Zen Mode" })
 map("n", "<leader>ut", "<cmd>Twilight<cr>", { desc = "Twilight" })
-map("n", "<leader>un", function() require("notify").dismiss({ silent = true, pending = true }) end, { desc = "Dismiss notifications" })
 -- ════════════════════════════════════════════════════════════════
 -- DIAGNOSTICS / ERRORS
 -- ════════════════════════════════════════════════════════════════

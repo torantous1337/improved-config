@@ -19,7 +19,7 @@ return {
       })
 
       -- Simple keymaps
-      vim.api. nvim_create_autocmd("FileType", {
+      vim.api.nvim_create_autocmd("FileType", {
         pattern = "go",
         callback = function()
           local opts = { buffer = true }
